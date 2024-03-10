@@ -1,16 +1,16 @@
 import vite, { normalizePath, mergeConfig, UserConfig } from "vite"
-import {readFileSync} from "node:fs"
+import { readFileSync } from "node:fs"
 import { convertObjToCssVar, parseJson } from "./core"
 import { Options } from "./types"
 
 
-export const plugin = (option: Options):vite.Plugin => {
-  let jsonFile : JSON
-  if(typeof option.file ==='string'){
+export const plugin = (option: Options): vite.Plugin => {
+  let jsonFile: JSON
+  if (typeof option.file === 'string') {
     const path = normalizePath(option.file)
     const fileContent = JSON.parse(readFileSync(path).toString()) as JSON
     jsonFile = fileContent
-  }else{
+  } else {
     jsonFile = option.file;
   }
 
@@ -24,26 +24,26 @@ export const plugin = (option: Options):vite.Plugin => {
     name: "vite-plugin-example",
     enforce: "pre",
     config(config) {
-      if(option.style === "preprocessor"){
+      if (option.style === "preprocessor") {
         const pluginConfig = {
-          css:{
-            preprocessorOptions:{
+          css: {
+            preprocessorOptions: {
               [option.lang]: result
             }
           }
         } satisfies UserConfig
-        return mergeConfig(pluginConfig,config)
+        return mergeConfig(pluginConfig, config)
       }
 
       return config
     },
 
     resolveId(id) {
-      if(id === virtualModuleId) return resolvedVirtualModuleId
+      if (id === virtualModuleId) return resolvedVirtualModuleId
     },
 
-    load(id){
-      if(id === resolvedVirtualModuleId && option.style === "css"){
+    load(id) {
+      if (id === resolvedVirtualModuleId && option.style === "css") {
         return {
           code: `
             :root{

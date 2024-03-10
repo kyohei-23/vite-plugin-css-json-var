@@ -13,5 +13,8 @@
     "unbuild": "^2.0.0",
     "vite": "^5.1.4",
     "vite-plugin-css-json-var": "./packages/vite-plugin-css-json-var"
+  },
+  "dependencies": {
+    "@biomejs/biome": "^1.6.0"
   }
 }
