@@ -1,5 +1,6 @@
 {
   "type": "module",
+  "name": "vite-plugin-css-json-var",
   "exports": {
     ".": {
       "import": "./dist/index.mjs",
@@ -12,5 +13,8 @@
   ],
   "scripts": {
     "build" : "unbuild"
+  },
+  "peerDependencies": {
+    "vite": "5.1.4"
   }
 }
