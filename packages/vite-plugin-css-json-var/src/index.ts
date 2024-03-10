@@ -1,4 +1,4 @@
-import vite, { normalizePath, mergeConfig } from "vite"
+import vite, { normalizePath, mergeConfig, UserConfig } from "vite"
 import {readFileSync} from "node:fs"
 import { convertObjToCssVar, parseJson } from "./core"
 import { Options } from "./types"
@@ -17,7 +17,7 @@ export const plugin = (option: Options):vite.Plugin => {
   const rawData = parseJson(jsonFile)
   const result = convertObjToCssVar(rawData, option.lang)
 
-  const virtualModuleId = "virtual:css-vars"
+  const virtualModuleId = "virtual:css-vars.css"
   const resolvedVirtualModuleId = "\0" + virtualModuleId
 
   return {
@@ -31,7 +31,7 @@ export const plugin = (option: Options):vite.Plugin => {
               [option.lang]: result
             }
           }
-        }
+        } satisfies UserConfig
         return mergeConfig(pluginConfig,config)
       }
 
@@ -44,7 +44,13 @@ export const plugin = (option: Options):vite.Plugin => {
 
     load(id){
       if(id === resolvedVirtualModuleId && option.style === "css"){
-        return result
+        return {
+          code: `
+            :root{
+              ${result}
+            }
+          `
+        }
       }
     }
   }
