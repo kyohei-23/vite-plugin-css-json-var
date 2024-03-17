@@ -12,7 +12,8 @@
     "dist"
   ],
   "scripts": {
-    "build" : "unbuild"
+    "build": "unbuild",
+    "test": "vitest"
   },
   "peerDependencies": {
     "vite": "5.1.4"
