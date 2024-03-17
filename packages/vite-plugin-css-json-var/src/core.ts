@@ -34,7 +34,7 @@ function getPrefix(type: Options["lang"]) {
 }
 
 function getConnector(type: Options["lang"]) {
-  if (type === "sass") {
+  if (type === "stylus") {
     return "= "
   }
   else {
