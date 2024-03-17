@@ -1,6 +1,18 @@
 {
-  "type": "module",
   "name": "vite-plugin-css-json-var",
+  "version": "1.0.0",
+  "type": "module",
+  "license": "MIT",
+  "keywords": [
+    "vite-plugin",
+    "css",
+    "css-variable"
+  ],
+  "repository": {
+    "url": "https://github.com/kyohei-23/vite-plugin-css-json-var",
+    "type": "git",
+    "directory": "packages/vite-plugin-css-json-var"
+  },
   "exports": {
     ".": {
       "import": "./dist/index.mjs",
@@ -20,5 +32,5 @@
   },
   "devDependencies": {
     "@types/node": "18.16.0"
-  }
+  },
 }
