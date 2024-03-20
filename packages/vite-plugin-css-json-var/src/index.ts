@@ -5,7 +5,8 @@ import { convertObjToCssVar, parseJson } from "./core"
 import { Options } from "./types"
 
 
-export const plugin = (option: Options): vite.Plugin => {
+
+const plugin = (option: Options): vite.Plugin => {
   let jsonFile: Object
   if (typeof option.file === 'string') {
     const path = normalizePath(option.file)
@@ -26,17 +27,22 @@ export const plugin = (option: Options): vite.Plugin => {
     enforce: "pre",
     config(config) {
       if (option.style === "preprocessor") {
+
+        const userAddedData: string | undefined = config.css?.preprocessorOptions?.[option.lang]?.additionalData
+
+        const userAddedStrings = typeof userAddedData === "string" ? userAddedData : ""
+
         const pluginConfig = {
           css: {
             preprocessorOptions: {
               [option.lang]: {
-                additionalData: result
+                additionalData: userAddedStrings + "\n" + result
               }
             }
           }
         } satisfies UserConfig
 
-        return mergeConfig(pluginConfig, config)
+        return mergeConfig(config, pluginConfig)
       }
 
       return config
@@ -67,3 +73,5 @@ export const plugin = (option: Options): vite.Plugin => {
     }
   }
 }
+
+export default plugin
