@@ -13,7 +13,7 @@ interface CommonOptions {
    * file: setting_json
    * ```
    */
-  file: JSON | string;
+  file: string | Object;
 }
 
 

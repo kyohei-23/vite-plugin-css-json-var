@@ -1,6 +1,6 @@
 import { Options } from "./types";
 
-export function parseJson(json: JSON): Record<string, string> {
+export function parseJson(json: Object): Record<string, string> {
   const result = {};
 
   function recurse(obj: Object, currentKey: string) {
