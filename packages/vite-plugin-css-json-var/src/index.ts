@@ -5,10 +5,10 @@ import { Options } from "./types"
 
 
 export const plugin = (option: Options): vite.Plugin => {
-  let jsonFile: JSON
+  let jsonFile: Object
   if (typeof option.file === 'string') {
     const path = normalizePath(option.file)
-    const fileContent = JSON.parse(readFileSync(path).toString()) as JSON
+    const fileContent = JSON.parse(readFileSync(path).toString())
     jsonFile = fileContent
   } else {
     jsonFile = option.file;
