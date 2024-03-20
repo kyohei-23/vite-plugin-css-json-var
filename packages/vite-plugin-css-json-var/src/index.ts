@@ -25,17 +25,22 @@ export const plugin = (option: Options): vite.Plugin => {
     enforce: "pre",
     config(config) {
       if (option.style === "preprocessor") {
+
+        const userAddedData: string | undefined = config.css?.preprocessorOptions?.[option.lang]?.additionalData
+
+        const userAddedStrings = typeof userAddedData === "string" ? userAddedData : ""
+
         const pluginConfig = {
           css: {
             preprocessorOptions: {
               [option.lang]: {
-                additionalData: result
+                additionalData: userAddedStrings + "\n" + result
               }
             }
           }
         } satisfies UserConfig
 
-        return mergeConfig(pluginConfig, config)
+        return mergeConfig(config, pluginConfig)
       }
 
       return config
