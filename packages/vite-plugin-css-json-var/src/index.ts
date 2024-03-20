@@ -4,7 +4,7 @@ import { convertObjToCssVar, parseJson } from "./core"
 import { Options } from "./types"
 
 
-export const plugin = (option: Options): vite.Plugin => {
+const plugin = (option: Options): vite.Plugin => {
   let jsonFile: JSON
   if (typeof option.file === 'string') {
     const path = normalizePath(option.file)
@@ -63,3 +63,5 @@ export const plugin = (option: Options): vite.Plugin => {
     }
   }
 }
+
+export default plugin

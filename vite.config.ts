@@ -1,5 +1,5 @@
 import { UserConfig } from "vite";
-import { plugin as jsonConfigPlugin } from 'vite-plugin-css-json-var';
+import jsonConfigPlugin from 'vite-plugin-css-json-var';
 import json from "./site.config.json"
 
 export default {
