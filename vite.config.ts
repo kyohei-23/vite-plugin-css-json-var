@@ -9,12 +9,5 @@ export default {
       lang: "scss",
       style: "preprocessor",
     })
-  ],
-  css: {
-    preprocessorOptions: {
-      scss: {
-        additionalData: "$hoge-color: #000000;"
-      }
-    }
-  }
+  ]
 } satisfies UserConfig
