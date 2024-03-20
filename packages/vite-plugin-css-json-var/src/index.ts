@@ -1,5 +1,6 @@
 import vite, { normalizePath, mergeConfig, UserConfig } from "vite"
 import { readFileSync } from "node:fs"
+import { resolve } from "node:path"
 import { convertObjToCssVar, parseJson } from "./core"
 import { Options } from "./types"
 
@@ -54,6 +55,14 @@ export const plugin = (option: Options): vite.Plugin => {
             }
           `
         }
+      }
+    },
+    handleHotUpdate(ctx) {
+      /**
+       * Managed by flags, since there is no need to manually update the HMR when JSON is passed directly
+       */
+      if ("string" === typeof option.file && resolve(ctx.file) === resolve(option.file)) {
+        ctx.server.restart()
       }
     }
   }
