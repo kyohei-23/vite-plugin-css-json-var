@@ -28,7 +28,7 @@
     "test": "vitest"
   },
   "peerDependencies": {
-    "vite": "5.1.4"
+    "vite": "^5.1.4"
   },
   "devDependencies": {
     "@types/node": "18.16.0"
