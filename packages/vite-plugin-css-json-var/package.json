@@ -1,6 +1,6 @@
 {
   "name": "vite-plugin-css-json-var",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "type": "module",
   "license": "MIT",
   "keywords": [
@@ -28,7 +28,7 @@
     "test": "vitest"
   },
   "peerDependencies": {
-    "vite": "5.1.4"
+    "vite": "^5.1.4"
   },
   "devDependencies": {
     "@types/node": "18.16.0"

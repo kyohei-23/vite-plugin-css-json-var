@@ -1,14 +1,15 @@
 import vite, { normalizePath, mergeConfig, UserConfig } from "vite"
 import { readFileSync } from "node:fs"
+import { resolve } from "node:path"
 import { convertObjToCssVar, parseJson } from "./core"
 import { Options } from "./types"
 
 
-export const plugin = (option: Options): vite.Plugin => {
-  let jsonFile: JSON
+const plugin = (option: Options): vite.Plugin => {
+  let jsonFile: Object
   if (typeof option.file === 'string') {
     const path = normalizePath(option.file)
-    const fileContent = JSON.parse(readFileSync(path).toString()) as JSON
+    const fileContent = JSON.parse(readFileSync(path).toString())
     jsonFile = fileContent
   } else {
     jsonFile = option.file;
@@ -25,17 +26,22 @@ export const plugin = (option: Options): vite.Plugin => {
     enforce: "pre",
     config(config) {
       if (option.style === "preprocessor") {
+
+        const userAddedData: string | undefined = config.css?.preprocessorOptions?.[option.lang]?.additionalData
+
+        const userAddedStrings = typeof userAddedData === "string" ? userAddedData : ""
+
         const pluginConfig = {
           css: {
             preprocessorOptions: {
               [option.lang]: {
-                additionalData: result
+                additionalData: userAddedStrings + "\n" + result
               }
             }
           }
         } satisfies UserConfig
 
-        return mergeConfig(pluginConfig, config)
+        return mergeConfig(config, pluginConfig)
       }
 
       return config
@@ -55,6 +61,16 @@ export const plugin = (option: Options): vite.Plugin => {
           `
         }
       }
+    },
+    handleHotUpdate(ctx) {
+      /**
+       * Managed by flags, since there is no need to manually update the HMR when JSON is passed directly
+       */
+      if ("string" === typeof option.file && resolve(ctx.file) === resolve(option.file)) {
+        ctx.server.restart()
+      }
     }
   }
 }
+
+export default plugin
