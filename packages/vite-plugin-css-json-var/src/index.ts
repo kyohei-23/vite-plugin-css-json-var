@@ -6,7 +6,7 @@ import { Options } from "./types"
 
 
 const plugin = (option: Options): vite.Plugin => {
-  let jsonFile: JSON
+  let jsonFile: Object
   if (typeof option.file === 'string') {
     const path = normalizePath(option.file)
     const fileContent = JSON.parse(readFileSync(path).toString())
