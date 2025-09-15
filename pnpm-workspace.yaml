@@ -1,2 +1,12 @@
 packages:
-  - 'packages/*'
+  - packages/*
+
+overrides:
+  '@babel/helpers@<7.26.10': '>=7.26.10'
+  brace-expansion@>=2.0.0 <=2.0.1: '>=2.0.2'
+  braces@<3.0.3: '>=3.0.3'
+  cross-spawn@>=7.0.0 <7.0.5: '>=7.0.5'
+  esbuild@<=0.24.2: '>=0.25.0'
+  micromatch@<4.0.8: '>=4.0.8'
+  rollup@>=3.0.0 <3.29.5: '>=3.29.5'
+  vitest@>=1.0.0 <1.6.1: '>=1.6.1'
