@@ -16,6 +16,6 @@
   },
   "dependencies": {
     "sass": "^1.92.1",
-    "vitest": "^1.4.0"
+    "vitest": "^4.1.0"
   }
 }
