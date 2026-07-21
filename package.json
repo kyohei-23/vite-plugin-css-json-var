@@ -15,7 +15,7 @@
   "devDependencies": {
     "typescript": "^5.9.2",
     "vite": "catalog:",
-    "vite-plugin-css-json-var": "./packages/vite-plugin-css-json-var",
+    "vite-plugin-css-json-var": "link:packages/vite-plugin-css-json-var",
     "vite-plus": "catalog:",
     "vitest": "catalog:"
   },

@@ -30,7 +30,7 @@
   "devDependencies": {
     "@types/node": "20.19.0",
     "vite-plus": "catalog:",
-    "vitest": "catalog:"
+    "vitest": "4.1.10"
   },
   "peerDependencies": {
     "vite": "^5.4.20 || ^6.0.0 || ^7.0.0 || ^8.0.0"
