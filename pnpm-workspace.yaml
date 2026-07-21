@@ -1,12 +1,29 @@
 packages:
   - packages/*
 
+allowBuilds:
+  "@parcel/watcher": true
+  esbuild: true
+
 overrides:
-  '@babel/helpers@<7.26.10': '>=7.26.10'
-  brace-expansion@>=2.0.0 <=2.0.1: '>=2.0.2'
-  braces@<3.0.3: '>=3.0.3'
-  cross-spawn@>=7.0.0 <7.0.5: '>=7.0.5'
-  esbuild@<=0.24.2: '>=0.25.0'
-  micromatch@<4.0.8: '>=4.0.8'
-  rollup@>=3.0.0 <3.29.5: '>=3.29.5'
-  vitest@>=1.0.0 <1.6.1: '>=1.6.1'
+  "@babel/helpers@<7.26.10": ">=7.26.10"
+  brace-expansion@>=2.0.0 <=2.0.1: ">=2.0.2"
+  braces@<3.0.3: ">=3.0.3"
+  cross-spawn@>=7.0.0 <7.0.5: ">=7.0.5"
+  esbuild@<=0.24.2: ">=0.25.0"
+  micromatch@<4.0.8: ">=4.0.8"
+  rollup@>=3.0.0 <3.29.5: ">=3.29.5"
+  vitest@>=1.0.0 <1.6.1: ">=1.6.1"
+  vite: "catalog:"
+  vitest: "catalog:"
+catalog:
+  vite: npm:@voidzero-dev/vite-plus-core@0.2.5
+  vitest: 4.1.10
+  vite-plus: 0.2.5
+peerDependencyRules:
+  allowAny:
+    - vite
+    - vitest
+  allowedVersions:
+    vite: "*"
+    vitest: "*"

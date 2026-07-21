@@ -1,36 +1,38 @@
 {
   "name": "vite-plugin-css-json-var",
   "version": "1.2.0",
-  "type": "module",
-  "license": "MIT",
   "keywords": [
-    "vite-plugin",
     "css",
-    "css-variable"
+    "css-variable",
+    "vite-plugin"
   ],
+  "license": "MIT",
   "repository": {
-    "url": "https://github.com/kyohei-23/vite-plugin-css-json-var",
     "type": "git",
+    "url": "https://github.com/kyohei-23/vite-plugin-css-json-var",
     "directory": "packages/vite-plugin-css-json-var"
   },
+  "files": [
+    "dist"
+  ],
+  "type": "module",
+  "main": "./dist/index.mjs",
   "exports": {
     ".": {
       "import": "./dist/index.mjs",
       "types": "./dist/index.d.mts"
     }
   },
-  "main": "./dist/index.mjs",
-  "files": [
-    "dist"
-  ],
   "scripts": {
-    "build": "unbuild",
-    "test": "vitest"
-  },
-  "peerDependencies": {
-    "vite": "^5.4.20 || ^6.0.0 || ^7.0.0"
+    "build": "vp pack",
+    "test": "vp test"
   },
   "devDependencies": {
-    "@types/node": "20.19.0"
+    "@types/node": "20.19.0",
+    "vite-plus": "catalog:",
+    "vitest": "catalog:"
+  },
+  "peerDependencies": {
+    "vite": "^5.4.20 || ^6.0.0 || ^7.0.0 || ^8.0.0"
   }
 }

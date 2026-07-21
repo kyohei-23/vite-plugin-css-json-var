@@ -1,116 +1,120 @@
 import { Options } from "./types";
 
-export function parseJson(json: Object): Record<string, string> {
-  const result = {};
+type JsonObject = Record<string, unknown>;
 
-  function recurse(obj: Object, currentKey: string) {
+export function parseJson(json: JsonObject): Record<string, unknown> {
+  const result: Record<string, unknown> = {};
+
+  function recurse(obj: JsonObject, currentKey: string) {
     for (const key in obj) {
       const value = obj[key];
-      const newKey = currentKey ? currentKey + '-' + key : key;
+      const newKey = currentKey ? currentKey + "-" + key : key;
 
-      if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
-        recurse(value, newKey);
+      if (typeof value === "object" && value !== null && !Array.isArray(value)) {
+        recurse(value as JsonObject, newKey);
       } else {
         result[newKey] = value;
       }
     }
   }
 
-  recurse(json, '');
+  recurse(json, "");
   return result;
 }
 
 function getPrefix(type: Options["lang"]) {
   switch (type) {
     case "css":
-      return "--"
+      return "--";
     case "less":
-      return "@"
+      return "@";
     case "stylus":
-      return ""
+      return "";
     default:
-      return "$"
+      return "$";
   }
 }
 
 if (import.meta.vitest) {
-  const { it, expect } = import.meta.vitest
+  const { it, expect } = import.meta.vitest;
   it("getConnector", () => {
-    expect(getPrefix("css")).toBe("--")
-    expect(getPrefix("sass")).toBe("$")
-    expect(getPrefix("scss")).toBe("$")
-    expect(getPrefix("less")).toBe("@")
-    expect(getPrefix("stylus")).toBe("")
-  })
+    expect(getPrefix("css")).toBe("--");
+    expect(getPrefix("sass")).toBe("$");
+    expect(getPrefix("scss")).toBe("$");
+    expect(getPrefix("less")).toBe("@");
+    expect(getPrefix("stylus")).toBe("");
+  });
 }
 
 function getConnector(type: Options["lang"]) {
   if (type === "stylus") {
-    return "= "
-  }
-  else {
-    return ": "
+    return "= ";
+  } else {
+    return ": ";
   }
 }
 
 if (import.meta.vitest) {
-  const { it, expect } = import.meta.vitest
+  const { it, expect } = import.meta.vitest;
   it("getConnector", () => {
-    expect(getConnector("css")).toBe(": ")
-    expect(getConnector("sass")).toBe(": ")
-    expect(getConnector("scss")).toBe(": ")
-    expect(getConnector("less")).toBe(": ")
-    expect(getConnector("stylus")).toBe("= ")
-  })
+    expect(getConnector("css")).toBe(": ");
+    expect(getConnector("sass")).toBe(": ");
+    expect(getConnector("scss")).toBe(": ");
+    expect(getConnector("less")).toBe(": ");
+    expect(getConnector("stylus")).toBe("= ");
+  });
 }
 
 function getEOL(type: Options["lang"]) {
   switch (type) {
     case "sass":
     case "stylus":
-      return "\n"
-    default: return ";\n"
+      return "\n";
+    default:
+      return ";\n";
   }
 }
 
 if (import.meta.vitest) {
-  const { it, expect } = import.meta.vitest
+  const { it, expect } = import.meta.vitest;
   it("getEOL", () => {
-    expect(getEOL("css")).toBe(";\n")
-    expect(getEOL("sass")).toBe("\n")
-    expect(getEOL("scss")).toBe(";\n")
-    expect(getEOL("less")).toBe(";\n")
-    expect(getEOL("stylus")).toBe("\n")
-  })
+    expect(getEOL("css")).toBe(";\n");
+    expect(getEOL("sass")).toBe("\n");
+    expect(getEOL("scss")).toBe(";\n");
+    expect(getEOL("less")).toBe(";\n");
+    expect(getEOL("stylus")).toBe("\n");
+  });
 }
 
 function getVariableGenerator(lang: Options["lang"]) {
-  const prefix = getPrefix(lang)
-  const connector = getConnector(lang)
-  const eol = getEOL(lang)
+  const prefix = getPrefix(lang);
+  const connector = getConnector(lang);
+  const eol = getEOL(lang);
 
-  return function (key: string, value: string) {
-    return `${prefix}${key}${connector}${value}${eol}`
-  }
-
+  return function (key: string, value: unknown) {
+    return `${prefix}${key}${connector}${String(value)}${eol}`;
+  };
 }
 
 if (import.meta.vitest) {
-  const { it, expect } = import.meta.vitest
+  const { it, expect } = import.meta.vitest;
   const key = "main-color",
-    value = "#f00000"
+    value = "#f00000";
   it("outputTest", () => {
-    expect(getVariableGenerator("css")(key, value)).toBe(`--${key}: ${value};\n`)
-    expect(getVariableGenerator("sass")(key, value)).toBe(`$${key}: ${value}\n`)
-    expect(getVariableGenerator("scss")(key, value)).toBe(`$${key}: ${value};\n`)
-    expect(getVariableGenerator("less")(key, value)).toBe(`@${key}: ${value};\n`)
-    expect(getVariableGenerator("stylus")(key, value)).toBe(`${key}= ${value}\n`)
-  })
+    expect(getVariableGenerator("css")(key, value)).toBe(`--${key}: ${value};\n`);
+    expect(getVariableGenerator("sass")(key, value)).toBe(`$${key}: ${value}\n`);
+    expect(getVariableGenerator("scss")(key, value)).toBe(`$${key}: ${value};\n`);
+    expect(getVariableGenerator("less")(key, value)).toBe(`@${key}: ${value};\n`);
+    expect(getVariableGenerator("stylus")(key, value)).toBe(`${key}= ${value}\n`);
+  });
 }
 
-export function convertObjToCssVar(obj: Record<string, string>, option: Options): string {
-  const outputLang = option.style === "css" ? "css" : option.lang
-  const variiableGenerator = getVariableGenerator(outputLang)
-  const data = Object.entries(obj).reduce((result, [key, value]) => result += variiableGenerator(key, value), "");
-  return data
+export function convertObjToCssVar(obj: Record<string, unknown>, option: Options): string {
+  const outputLang = option.style === "css" ? "css" : option.lang;
+  const variiableGenerator = getVariableGenerator(outputLang);
+  const data = Object.entries(obj).reduce(
+    (result, [key, value]) => (result += variiableGenerator(key, value)),
+    "",
+  );
+  return data;
 }
