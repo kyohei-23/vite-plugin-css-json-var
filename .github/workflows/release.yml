@@ -4,6 +4,18 @@ on:
   push:
     branches:
       - main
+    paths:
+      - packages/vite-plugin-css-json-var/src/**
+      - packages/vite-plugin-css-json-var/build.config.ts
+      - packages/vite-plugin-css-json-var/package.json
+      - packages/vite-plugin-css-json-var/tsconfig.json
+      - package.json
+      - pnpm-lock.yaml
+      - pnpm-workspace.yaml
+      - '!packages/vite-plugin-css-json-var/src/**/*.test.ts'
+      - '!packages/vite-plugin-css-json-var/src/**/*.spec.ts'
+      - '!packages/vite-plugin-css-json-var/**/__tests__/**'
+      - '!packages/vite-plugin-css-json-var/**/tests/**'
 
 permissions:
   contents: write
