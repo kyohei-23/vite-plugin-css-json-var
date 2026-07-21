@@ -28,7 +28,7 @@
     "test": "vp test"
   },
   "devDependencies": {
-    "@types/node": "20.19.0",
+    "@types/node": "24.13.3",
     "vite-plus": "catalog:",
     "vitest": "4.1.10"
   },
