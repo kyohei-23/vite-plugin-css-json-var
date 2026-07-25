@@ -1,21 +1,29 @@
 {
   "name": "vite-plugin-boilerplate",
-  "private": true,
   "version": "0.0.0",
+  "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview"
+    "dev": "vp dev",
+    "build": "tsc && vp build",
+    "preview": "vp preview",
+    "prepare": "vp config"
+  },
+  "dependencies": {
+    "sass": "^1.92.1"
   },
   "devDependencies": {
     "typescript": "^5.9.2",
-    "unbuild": "^3.6.1",
-    "vite": "^7.1.5",
-    "vite-plugin-css-json-var": "./packages/vite-plugin-css-json-var"
+    "vite": "catalog:",
+    "vite-plugin-css-json-var": "link:packages/vite-plugin-css-json-var",
+    "vite-plus": "catalog:",
+    "vitest": "catalog:"
   },
-  "dependencies": {
-    "sass": "^1.92.1",
-    "vitest": "^1.4.0"
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "version": "11.15.1",
+      "onFail": "download"
+    }
   }
 }

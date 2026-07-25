@@ -6,16 +6,16 @@ on:
       - main
     paths:
       - packages/vite-plugin-css-json-var/src/**
-      - packages/vite-plugin-css-json-var/build.config.ts
+      - packages/vite-plugin-css-json-var/vite.config.ts
       - packages/vite-plugin-css-json-var/package.json
       - packages/vite-plugin-css-json-var/tsconfig.json
       - package.json
       - pnpm-lock.yaml
       - pnpm-workspace.yaml
-      - '!packages/vite-plugin-css-json-var/src/**/*.test.ts'
-      - '!packages/vite-plugin-css-json-var/src/**/*.spec.ts'
-      - '!packages/vite-plugin-css-json-var/**/__tests__/**'
-      - '!packages/vite-plugin-css-json-var/**/tests/**'
+      - "!packages/vite-plugin-css-json-var/src/**/*.test.ts"
+      - "!packages/vite-plugin-css-json-var/src/**/*.spec.ts"
+      - "!packages/vite-plugin-css-json-var/**/__tests__/**"
+      - "!packages/vite-plugin-css-json-var/**/tests/**"
 
 permissions:
   contents: write
@@ -38,26 +38,21 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
+      - name: Set up Vite+
+        uses: voidzero-dev/setup-vp@v1
         with:
-          node-version: 22
-          registry-url: https://registry.npmjs.org
-
-      - name: Set up pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 10.32.1
+          node-version: "24"
+          cache: true
 
       - name: Install dependencies
         working-directory: .
-        run: pnpm install --frozen-lockfile
+        run: vp install --frozen-lockfile
 
       - name: Bump package version
         run: npm version patch --no-git-tag-version
 
       - name: Build package
-        run: pnpm run build
+        run: vp run build
 
       - name: Publish package
         env:
