@@ -29,4 +29,5 @@ jobs:
         run: vp install --frozen-lockfile
 
       - name: Run tests
-        run: vp test
+        working-directory: packages/vite-plugin-css-json-var
+        run: vp test run
